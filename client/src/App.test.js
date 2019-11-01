@@ -1,7 +1,6 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, waitForElement } from '@testing-library/react';
 import App from './App';
-import PlayerCard from './components/PlayerCard';
 
 test('renders without crashing', () => {
   render(<App />);
@@ -17,7 +16,12 @@ test('it displays the toggle', () => {
   getByTestId('toggle')
 })
 
-test('it displays the cards', () => {
-  const { getByTestId } = render(<App />);
-  getByTestId('cards')
+test('it displays the countries', async () => {
+  const { getAllByText } = render(<App />);
+  await waitForElement (() => getAllByText(/country/i));
+})
+
+test('it displays the search count', async () => {
+  const { getAllByText } = render(<App />);
+  await waitForElement (() => getAllByText(/search count/i));
 })
